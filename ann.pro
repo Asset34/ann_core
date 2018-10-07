@@ -6,8 +6,10 @@ CONFIG -= qt
 SOURCES += src/main.cpp \
     src/neuron.cpp \
     src/akson.cpp \
-    src/synapse.cpp
+    src/synapse.cpp \
+    src/abstractneuron.cpp
 
 HEADERS += \
     src/activationfunction.hpp \
-    src/neuron.hpp
+    src/neuron.hpp \
+    src/abstractneuron.hpp
