@@ -55,7 +55,8 @@ public:
     void setWeight(double weight);
     double getWeight() const;
 
-    double getWeightedSignal() const;
+    double receiveSignal() const;
+    double receiveWeightedSignal() const;
 
 private:
     const Akson *m_inputAkson;

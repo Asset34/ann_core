@@ -16,7 +16,12 @@ double Neuron::Synapse::getWeight() const
     return m_weight;
 }
 
-double Neuron::Synapse::getWeightedSignal() const
+double Neuron::Synapse::receiveSignal() const
+{
+    return m_inputAkson->getSignal();
+}
+
+double Neuron::Synapse::receiveWeightedSignal() const
 {
     return m_inputAkson->getSignal() * m_weight;
 }

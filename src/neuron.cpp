@@ -30,7 +30,7 @@ void Neuron::sendSignal()
     // Compute sum
     double sum = 0.0;
     for (int i = 0; i < m_inputSynapses.size(); i++) {
-        sum += m_inputSynapses[i].getWeightedSignal();
+        sum += m_inputSynapses[i].receiveWeightedSignal();
     }
 
     // Set output signal
