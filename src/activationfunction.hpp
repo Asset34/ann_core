@@ -4,7 +4,7 @@
 class ActivationFunction
 {
 public:
-    double operator()(double x) = 0;
+    virtual double evaluate(double x) = 0;
 
 };
 
