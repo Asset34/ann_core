@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "neuron.hpp"
+
 int main()
 {
 
