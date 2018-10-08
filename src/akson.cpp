@@ -1,11 +1,11 @@
 #include "neuron.hpp"
 
-void Neuron::Akson::setSignal(double signal)
+void AbstractNeuron::Akson::setSignal(double signal)
 {
     m_signal = signal;
 }
 
-double Neuron::Akson::getSignal() const
+double AbstractNeuron::Akson::getSignal() const
 {
     return m_signal;
 }
