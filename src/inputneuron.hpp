@@ -9,8 +9,7 @@ public:
     InputNeuron(double signal = 0.0);
     virtual ~InputNeuron();
 
-    void setSignal(double signal);
-
+    virtual void setSignal(double signal);
     virtual void sendSignal();
 
 private:

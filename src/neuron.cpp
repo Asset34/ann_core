@@ -36,6 +36,11 @@ double Neuron::getBias() const
     return m_bias;
 }
 
+void Neuron::setSignal(double signal)
+{
+    // STUB
+}
+
 double Neuron::getSignal() const
 {
     return m_akson.getSignal();
