@@ -1,10 +1,9 @@
 #ifndef INPUTNEURON_HPP
 #define INPUTNEURON_HPP
 
-#include "abstractneuron.hpp"
 #include "neuron.hpp"
 
-class InputNeuron : public AbstractNeuron
+class InputNeuron : public Neuron
 {
 public:
     InputNeuron(double signal = 0.0);
