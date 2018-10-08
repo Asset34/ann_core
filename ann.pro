@@ -7,11 +7,9 @@ SOURCES += src/main.cpp \
     src/neuron.cpp \
     src/akson.cpp \
     src/synapse.cpp \
-    src/inputneuron.cpp \
-    src/outputneuron.cpp
+    src/inputneuron.cpp
 
 HEADERS += \
     src/activationfunction.hpp \
     src/neuron.hpp \
-    src/inputneuron.hpp \
-    src/outputneuron.hpp
+    src/inputneuron.hpp
