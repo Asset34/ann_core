@@ -36,6 +36,11 @@ double Neuron::getBias() const
     return m_bias;
 }
 
+double Neuron::getSignal() const
+{
+    return m_akson.getSignal();
+}
+
 void Neuron::connect(Neuron *neuron, double weight)
 {
     Synapse synapse(&m_akson, weight);

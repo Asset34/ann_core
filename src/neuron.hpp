@@ -18,6 +18,8 @@ public:
     void setBias(double bias);
     double getBias() const;
 
+    double getSignal() const;
+
     void connect(Neuron *neuron, double weight);
     static void connect(Neuron *n1, Neuron *n2, double weight);
 
