@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "activationfunction.hpp"
+#include "vector.hpp"
 
 class Neuron
 {
@@ -17,6 +18,9 @@ public:
 
     void setBias(double bias);
     double getBias() const;
+
+    void setWeights(const Vector &weightVec);
+    Vector getWeights() const;
 
     virtual void setSignal(double signal);
     double getSignal() const;
