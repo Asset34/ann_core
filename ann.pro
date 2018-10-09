@@ -7,11 +7,13 @@ SOURCES += \
     src/synapse.cpp \
     src/inputneuron.cpp \
     src/vector.cpp \
-    src/matrix.cpp
+    src/matrix.cpp \
+    src/layer.cpp
 
 HEADERS += \
     src/activationfunction.hpp \
     src/neuron.hpp \
     src/inputneuron.hpp \
     src/vector.hpp \
-    src/matrix.hpp
+    src/matrix.hpp \
+    src/layer.hpp
