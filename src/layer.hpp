@@ -19,12 +19,12 @@ public:
     void setActivationFunc(ActivationFunction *func);
     void setBias(double bias);
 
-    Neuron &getAt(int index);
+    Neuron *getAt(int index);
 
     void setWeights(const Matrix &weightMatrix);
     Matrix getWeights() const;
 
-    void connectAll(Neuron &neuron, const Vector &weightVec);
+    void connectAll(Neuron *neuron, const Vector &weightVec);
     void connectAll(Layer &layer, const Matrix &weightMatrix);
     void connectOneByOne(Layer &layer, const Vector &weightVec);
 
@@ -33,7 +33,9 @@ public:
     std::string getString() const;
 
 protected:
-    std::vector<Neuron> m_neurons;
+    Layer();
+
+    std::vector<Neuron*> m_neurons;
 
 private:
     int getMaxSynapseCount() const;
