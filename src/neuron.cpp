@@ -71,15 +71,15 @@ double Neuron::getSignal() const
     return m_akson.getSignal();
 }
 
-void Neuron::connect(Neuron *neuron, double weight)
+void Neuron::connect(Neuron &neuron, double weight)
 {
     Synapse synapse(&m_akson, weight);
-    neuron->m_inputSynapses.push_back(synapse);
+    neuron.m_inputSynapses.push_back(synapse);
 }
 
-void Neuron::connect(Neuron *n1, Neuron *n2, double weight)
+void Neuron::connect(Neuron &n1, Neuron &n2, double weight)
 {
-    n1->connect(n2, weight);
+    n1.connect(n2, weight);
 }
 
 void Neuron::sendSignal()

@@ -27,8 +27,8 @@ public:
     virtual void setSignal(double signal);
     double getSignal() const;
 
-    void connect(Neuron *neuron, double weight);
-    static void connect(Neuron *n1, Neuron *n2, double weight);
+    void connect(Neuron &neuron, double weight);
+    static void connect(Neuron &n1, Neuron &n2, double weight);
 
     virtual void sendSignal();
 
