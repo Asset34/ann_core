@@ -2,6 +2,8 @@
 #define LAYER_HPP
 
 #include <vector>
+#include <string>
+#include <sstream>
 
 #include "activationfunction.hpp"
 #include "neuron.hpp"
@@ -27,6 +29,8 @@ public:
     void connectOneByOne(Layer &layer, const Vector &weightVec);
 
     void sendSignal();
+
+    std::string getString() const;
 
 protected:
     std::vector<Neuron> m_neurons;

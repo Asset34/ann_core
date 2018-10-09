@@ -2,6 +2,8 @@
 #define MATRIX_HPP
 
 #include <vector>
+#include <string>
+#include <sstream>
 
 #include "vector.hpp"
 
@@ -14,8 +16,8 @@ public:
     int getRowCount() const;
     int getColumnCount() const;
 
-    const Vector &operator[](int column) const;
-    Vector &operator[](int column);
+    const Vector &operator[](int row) const;
+    Vector &operator[](int row);
 
     void setRowAt(int index, const Vector &row);
     const Vector &getRowAt(int index) const;
@@ -25,6 +27,8 @@ public:
 
     void resize(int n, int m);
     Matrix resized(int n, int m) const;
+
+    std::string getString() const;
 
 private:
     int m_rowCount;

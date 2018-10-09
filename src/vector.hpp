@@ -2,6 +2,8 @@
 #define VECTOR_HPP
 
 #include <vector>
+#include <string>
+#include <sstream>
 
 class Vector
 {
@@ -17,6 +19,8 @@ public:
 
     void resize(int n);
     Vector resized(int n) const;
+
+    std::string getString() const;
 
 private:
     std::vector<double> m_values;

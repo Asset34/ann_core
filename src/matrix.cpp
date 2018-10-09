@@ -32,14 +32,14 @@ int Matrix::getColumnCount() const
     return m_columnCount;
 }
 
-const Vector &Matrix::operator[](int column) const
+const Vector &Matrix::operator[](int row) const
 {
-    return m_rows[column];
+    return m_rows[row];
 }
 
-Vector &Matrix::operator[](int column)
+Vector &Matrix::operator[](int row)
 {
-    return m_rows[column];
+    return m_rows[row];
 }
 
 void Matrix::setRowAt(int index, const Vector &row)
@@ -89,4 +89,18 @@ Matrix Matrix::resized(int n, int m) const
     resizedMatrix.resize(n, m);
 
     return resizedMatrix;
+}
+
+std::string Matrix::getString() const
+{
+    std::stringstream ss;
+
+    for (int i = 0; i < m_rowCount; i++) {
+        for (int j = 0; j < m_columnCount; j++) {
+            ss << operator[](i).operator[](j) << " ";
+        }
+        ss << std::endl;
+    }
+
+    return ss.str();
 }

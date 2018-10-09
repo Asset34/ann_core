@@ -83,6 +83,17 @@ void Layer::sendSignal()
     }
 }
 
+std::string Layer::getString() const
+{
+    std::stringstream ss;
+
+    for (int i = 0; i < m_neurons.size(); i++) {
+        ss << m_neurons[i].getSignal() << " ";
+    }
+
+    ss.str();
+}
+
 int Layer::getMaxSynapseCount() const
 {
     int count = 0;

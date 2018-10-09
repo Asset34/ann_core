@@ -41,3 +41,14 @@ Vector Vector::resized(int n) const
 
     return resizedVec;
 }
+
+std::string Vector::getString() const
+{
+    std::stringstream ss;
+
+    for (int i = 0; i < m_values.size(); i++) {
+        ss << m_values[i] << " ";
+    }
+
+    return ss.str();
+}
