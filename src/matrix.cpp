@@ -2,22 +2,20 @@
 
 Matrix::Matrix(int n, int m)
     : m_rowCount(n),
-      m_columnCount(m)
+      m_columnCount(m),
+      m_rows(n)
 {
-    m_rows.resize(n);
-
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < n; i++) {
         m_rows[i] = Vector(m);
     }
 }
 
 Matrix::Matrix(int n, int m, double val)
     : m_rowCount(n),
-      m_columnCount(m)
+      m_columnCount(m),
+      m_rows(n)
 {
-    m_rows.resize(n);
-
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < n; i++) {
         m_rows[i] = Vector(val);
     }
 }
