@@ -13,9 +13,6 @@ public:
     virtual void setSignal(double signal);
     virtual void sendSignal();
 
-private:
-    double m_signal;
-
 };
 
 #endif // INPUTNEURON_HPP

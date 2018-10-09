@@ -1,15 +1,14 @@
 #include "inputneuron.hpp"
 
 InputNeuron::InputNeuron()
-    : Neuron(nullptr),
-      m_signal(0.0)
+    : Neuron(nullptr)
 {
 }
 
 InputNeuron::InputNeuron(double signal)
-    : Neuron(nullptr),
-      m_signal(signal)
+    : Neuron(nullptr)
 {
+    m_akson.setSignal(signal);
 }
 
 InputNeuron::~InputNeuron()
@@ -18,10 +17,10 @@ InputNeuron::~InputNeuron()
 
 void InputNeuron::sendSignal()
 {
-    m_akson.setSignal(m_signal);
+    // STUB
 }
 
 void InputNeuron::setSignal(double signal)
 {
-    m_signal = signal;
+    m_akson.setSignal(signal);
 }
