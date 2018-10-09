@@ -1,6 +1,8 @@
 #include "matrix.hpp"
 
 Matrix::Matrix(int n, int m)
+    : m_rowCount(n),
+      m_columnCount(m)
 {
     m_rows.resize(n);
 
@@ -10,6 +12,8 @@ Matrix::Matrix(int n, int m)
 }
 
 Matrix::Matrix(int n, int m, double val)
+    : m_rowCount(n),
+      m_columnCount(m)
 {
     m_rows.resize(n);
 
@@ -20,12 +24,12 @@ Matrix::Matrix(int n, int m, double val)
 
 int Matrix::getRowCount() const
 {
-    return m_rows.size();
+    return m_rowCount;
 }
 
 int Matrix::getColumnCount() const
 {
-    return m_rows[0].getCount();
+    return m_columnCount;
 }
 
 const Vector &Matrix::operator[](int column) const
@@ -40,29 +44,30 @@ Vector &Matrix::operator[](int column)
 
 void Matrix::setRowAt(int index, const Vector &row)
 {
-    m_rows[index] = row;
+    Vector resizedRow = row.resized(m_columnCount);
+
+    m_rows[index] = resizedRow;
 }
 
-const Vector &Matrix::getRowAt(int index)
+const Vector &Matrix::getRowAt(int index) const
 {
     return m_rows[index];
 }
 
 void Matrix::setColumnAt(int index, const Vector &column)
 {
-    Vector normColumn(column);
-    normColumn.resize(m_rows.size());
+    Vector resizedColumn = column.resized(m_rowCount);
 
-    for (int i = 0; i < m_rows.size(); i++) {
-        m_rows[i][index] = normColumn[i];
+    for (int i = 0; i < m_rowCount; i++) {
+        m_rows[i][index] = resizedColumn[i];
     }
 }
 
-Vector Matrix::getColumnAt(int index)
+Vector Matrix::getColumnAt(int index) const
 {
-    Vector column(m_rows.size());
+    Vector column(m_rowCount);
 
-    for (int i = 0; i < m_rows.size(); i++) {
+    for (int i = 0; i < m_rowCount; i++) {
         column[i] = m_rows[i][index];
     }
 
