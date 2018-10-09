@@ -2,7 +2,8 @@
 #define INPUTLAYER_HPP
 
 #include "layer.hpp"
-#include "vector"
+#include "vector.hpp"
+#include "inputneuron.hpp"
 
 class InputLayer : public Layer
 {
