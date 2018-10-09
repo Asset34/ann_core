@@ -2,7 +2,7 @@
 
 Neuron::Synapse::Synapse(const Neuron::Akson *akson)
     : m_inputAkson(akson),
-      m_weight(weight)
+      m_weight(1.0)
 {
 }
 
