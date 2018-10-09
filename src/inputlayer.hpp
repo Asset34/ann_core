@@ -11,7 +11,6 @@ public:
     InputLayer(int n);
 
     void setSignals(const Vector &signalVec);
-    Vector getSignals() const;
 
 };
 

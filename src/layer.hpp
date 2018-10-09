@@ -24,13 +24,13 @@ public:
     void setWeights(const Matrix &weightMatrix);
     Matrix getWeights() const;
 
+    Vector getSignals() const;
+
     void connectAll(Neuron *neuron, const Vector &weightVec);
     void connectAll(Layer &layer, const Matrix &weightMatrix);
     void connectOneByOne(Layer &layer, const Vector &weightVec);
 
     void sendSignal();
-
-    std::string getString() const;
 
 protected:
     Layer();

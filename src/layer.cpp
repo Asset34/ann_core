@@ -55,6 +55,17 @@ Matrix Layer::getWeights() const
     }
 }
 
+Vector Layer::getSignals() const
+{
+    Vector signalVec(m_neurons.size());
+
+    for (int i = 0; i < m_neurons.size(); i++) {
+        signalVec[i] = m_neurons[i]->getSignal();
+    }
+
+    return signalVec;
+}
+
 void Layer::connectAll(Neuron *neuron, const Vector &weightVec)
 {
     Vector resizedWeightVec = weightVec.resized(m_neurons.size());
@@ -87,17 +98,6 @@ void Layer::sendSignal()
     for (int i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->sendSignal();
     }
-}
-
-std::string Layer::getString() const
-{
-    std::stringstream ss;
-
-    for (int i = 0; i < m_neurons.size(); i++) {
-        ss << m_neurons[i]->getSignal() << " ";
-    }
-
-    ss.str();
 }
 
 Layer::Layer()
