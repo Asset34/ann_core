@@ -22,6 +22,8 @@ public:
     void setWeights(const Vector &weightVec);
     Vector getWeights() const;
 
+    int getSynapseCount() const;
+
     virtual void setSignal(double signal);
     double getSignal() const;
 

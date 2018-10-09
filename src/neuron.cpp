@@ -56,6 +56,11 @@ Vector Neuron::getWeights() const
     return weights;
 }
 
+int Neuron::getSynapseCount() const
+{
+    return m_inputSynapses.size();
+}
+
 void Neuron::setSignal(double signal)
 {
     // STUB
