@@ -8,7 +8,8 @@ SOURCES += \
     src/inputneuron.cpp \
     src/vector.cpp \
     src/matrix.cpp \
-    src/layer.cpp
+    src/layer.cpp \
+    src/inputlayer.cpp
 
 HEADERS += \
     src/activationfunction.hpp \
@@ -16,4 +17,5 @@ HEADERS += \
     src/inputneuron.hpp \
     src/vector.hpp \
     src/matrix.hpp \
-    src/layer.hpp
+    src/layer.hpp \
+    src/inputlayer.hpp
