@@ -31,5 +31,13 @@ double &Vector::operator[](int index)
 
 void Vector::resize(int n)
 {
-    m_values.reserve(n);
+    m_values.resize(n);
+}
+
+Vector Vector::resized(int n) const
+{
+    Vector resizedVec(*this);
+    resizedVec.resize(n);
+
+    return resizedVec;
 }

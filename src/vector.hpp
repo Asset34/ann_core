@@ -16,6 +16,7 @@ public:
     double &operator[](int index);
 
     void resize(int n);
+    Vector resized(int n) const;
 
 private:
     std::vector<double> m_values;
