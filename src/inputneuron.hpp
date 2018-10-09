@@ -6,7 +6,8 @@
 class InputNeuron : public Neuron
 {
 public:
-    InputNeuron(double signal = 0.0);
+    InputNeuron();
+    InputNeuron(double signal);
     virtual ~InputNeuron();
 
     virtual void setSignal(double signal);

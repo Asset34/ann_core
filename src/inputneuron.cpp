@@ -1,7 +1,14 @@
 #include "inputneuron.hpp"
 
+InputNeuron::InputNeuron()
+    : Neuron(nullptr),
+      m_signal(0.0)
+{
+}
+
 InputNeuron::InputNeuron(double signal)
-    : m_signal(signal)
+    : Neuron(nullptr),
+      m_signal(signal)
 {
 }
 
