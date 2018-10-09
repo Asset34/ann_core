@@ -77,3 +77,11 @@ void Matrix::resize(int n, int m)
         m_rows[i].resize(m);
     }
 }
+
+Matrix Matrix::resized(int n, int m) const
+{
+    Matrix resizedMatrix(*this);
+    resizedMatrix.resize(n, m);
+
+    return resizedMatrix;
+}

@@ -24,6 +24,7 @@ public:
     Vector getColumnAt(int index);
 
     void resize(int n, int m);
+    Matrix resized(int n, int m) const;
 
 private:
     std::vector<Vector> m_rows;
