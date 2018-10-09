@@ -1,5 +1,11 @@
 #include "neuron.hpp"
 
+Neuron::Synapse::Synapse(const Neuron::Akson *akson)
+    : m_inputAkson(akson),
+      m_weight(weight)
+{
+}
+
 Neuron::Synapse::Synapse(const Akson *akson, double weight)
     : m_inputAkson(akson),
       m_weight(weight)

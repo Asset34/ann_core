@@ -8,8 +8,8 @@
 class Neuron
 {
 public:
-    Neuron(double bias = 0.0);
-    Neuron(ActivationFunction *func, double bias = 0.0);
+    Neuron(ActivationFunction *func);
+    Neuron(ActivationFunction *func, double bias);
     virtual ~Neuron();
 
     void setActivationFunc(ActivationFunction *func);
@@ -30,18 +30,21 @@ protected:
     class Akson
     {
     public:
+        Akson();
+
         void setSignal(double signal);
         double getSignal() const;
 
     private:
-        double m_signal = 0.0;
+        double m_signal;
 
     };
 
     class Synapse
     {
     public:
-        explicit Synapse(const Akson *akson, double weight = 1.0);
+        explicit Synapse(const Akson *akson);
+        Synapse(const Akson *akson, double weight);
 
         void setWeight(double weight);
         double getWeight() const;
@@ -55,11 +58,10 @@ protected:
 
     };
 
-    Akson m_akson;
     std::vector<Synapse> m_inputSynapses;
-
     ActivationFunction *m_activationFunc;
     double m_bias;
+    Akson m_akson;
 };
 
 #endif // NEURON_HPP

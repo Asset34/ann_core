@@ -1,9 +1,9 @@
 #include "neuron.hpp"
 
-Neuron::Neuron(double bias)
-    : m_bias(bias)
+Neuron::Neuron(ActivationFunction *func)
+    : m_activationFunc(func),
+      m_bias(0.0)
 {
-    // TODO: Set default activation fucntion
 }
 
 Neuron::Neuron(ActivationFunction *func, double bias)
