@@ -11,7 +11,7 @@ public:
     virtual ~InputNeuron();
 
     virtual void setSignal(double signal);
-    virtual void sendSignal();
+    virtual void computeSignal();
 
 };
 

@@ -93,11 +93,24 @@ void Layer::connectOneByOne(Layer &layer, const Vector &weightVec)
     }
 }
 
-void Layer::sendSignal()
+void Layer::computeSignals()
+{
+    for (int i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i]->computeSignal();
+    }
+}
+
+void Layer::sendSignals()
 {
     for (int i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->sendSignal();
     }
+}
+
+void Layer::moveSignals()
+{
+    computeSignals();
+    sendSignals();
 }
 
 Layer::Layer()

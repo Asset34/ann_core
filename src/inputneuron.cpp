@@ -15,12 +15,12 @@ InputNeuron::~InputNeuron()
 {
 }
 
-void InputNeuron::sendSignal()
+void InputNeuron::computeSignal()
 {
     // STUB
 }
 
 void InputNeuron::setSignal(double signal)
 {
-    m_akson.setSignal(signal);
+    m_resultSignal = signal;
 }

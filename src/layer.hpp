@@ -30,7 +30,9 @@ public:
     void connectAll(Layer &layer, const Matrix &weightMatrix);
     void connectOneByOne(Layer &layer, const Vector &weightVec);
 
-    void sendSignal();
+    void computeSignals();
+    void sendSignals();
+    void moveSignals();
 
 protected:
     Layer();

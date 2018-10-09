@@ -2,13 +2,15 @@
 
 Neuron::Neuron(ActivationFunction *func)
     : m_activationFunc(func),
-      m_bias(0.0)
+      m_bias(0.0),
+      m_resultSignal(0.0)
 {
 }
 
 Neuron::Neuron(ActivationFunction *func, double bias)
     : m_activationFunc(func),
-      m_bias(bias)
+      m_bias(bias),
+      m_resultSignal(0.0)
 {
 }
 
@@ -82,7 +84,7 @@ void Neuron::connect(Neuron &n1, Neuron &n2, double weight)
     n1.connect(n2, weight);
 }
 
-void Neuron::sendSignal()
+void Neuron::computeSignal()
 {
     // Compute sum
     double sum = 0.0;
@@ -90,6 +92,10 @@ void Neuron::sendSignal()
         sum += m_inputSynapses[i].receiveWeightedSignal();
     }
 
-    // Set output signal
-    m_akson.setSignal(m_activationFunc->evaluate(sum) + m_bias);
+    m_resultSignal = m_activationFunc->evaluate(sum) + m_bias;
+}
+
+void Neuron::sendSignal()
+{
+    m_akson.setSignal(m_resultSignal);
 }

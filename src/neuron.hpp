@@ -30,7 +30,8 @@ public:
     void connect(Neuron &neuron, double weight);
     static void connect(Neuron &n1, Neuron &n2, double weight);
 
-    virtual void sendSignal();
+    virtual void computeSignal();
+    void sendSignal();
 
 protected:
     class Akson
@@ -68,6 +69,8 @@ protected:
     ActivationFunction *m_activationFunc;
     double m_bias;
     Akson m_akson;
+
+    double m_resultSignal;
 };
 
 #endif // NEURON_HPP
