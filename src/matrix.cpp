@@ -1,23 +1,17 @@
 #include "matrix.hpp"
 
-Matrix::Matrix(int n, int m)
-    : m_rowCount(n),
-      m_columnCount(m),
-      m_rows(n)
+Matrix::Matrix(int rowCount, int columnCount)
+    : m_rowCount(rowCount),
+      m_columnCount(columnCount),
+      m_rows(rowCount, Vector(columnCount))
 {
-    for (int i = 0; i < n; i++) {
-        m_rows[i] = Vector(m);
-    }
 }
 
-Matrix::Matrix(int n, int m, double val)
-    : m_rowCount(n),
-      m_columnCount(m),
-      m_rows(n)
+Matrix::Matrix(int rowCount, int columnCount, double val)
+    : m_rowCount(rowCount),
+      m_columnCount(columnCount),
+      m_rows(rowCount, Vector(val))
 {
-    for (int i = 0; i < n; i++) {
-        m_rows[i] = Vector(val);
-    }
 }
 
 int Matrix::getRowCount() const
@@ -72,19 +66,19 @@ Vector Matrix::getColumnAt(int index) const
     return column;
 }
 
-void Matrix::resize(int n, int m)
+void Matrix::resize(int rowCount, int columnCount)
 {
-    m_rows.resize(n);
+    m_rows.resize(rowCount);
 
-    for (int i = 0; i < m; i++) {
-        m_rows[i].resize(m);
+    for (int i = 0; i < columnCount; i++) {
+        m_rows[i].resize(columnCount);
     }
 }
 
-Matrix Matrix::resized(int n, int m) const
+Matrix Matrix::resized(int rowCount, int columnCount) const
 {
     Matrix resizedMatrix(*this);
-    resizedMatrix.resize(n, m);
+    resizedMatrix.resize(rowCount, columnCount);
 
     return resizedMatrix;
 }

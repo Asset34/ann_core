@@ -10,8 +10,8 @@
 class Matrix
 {
 public:
-    Matrix(int n, int m);
-    Matrix(int n, int m, double val);
+    Matrix(int rowCount, int columnCount);
+    Matrix(int rowCount, int columnCount, double val);
 
     int getRowCount() const;
     int getColumnCount() const;
@@ -25,14 +25,15 @@ public:
     void setColumnAt(int index, const Vector &column);
     Vector getColumnAt(int index) const;
 
-    void resize(int n, int m);
-    Matrix resized(int n, int m) const;
+    void resize(int rowCount, int columnCount);
+    Matrix resized(int rowCount, int columnCount) const;
 
     std::string getString() const;
 
 private:
     int m_rowCount;
     int m_columnCount;
+
     std::vector<Vector> m_rows;
 
 };
