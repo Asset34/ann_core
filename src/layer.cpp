@@ -71,17 +71,17 @@ Vector Layer::getSignals() const
     return siignals;
 }
 
-void Layer::connect(Neuron *neuron, const Vector &weights)
+void Layer::connect(Neuron &neuron, const Vector &weights)
 {
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->connect(*neuron, weights[i]);
+        m_neurons[i]->connect(neuron, weights[i]);
     }
 }
 
 void Layer::connect(Layer &layer, const Matrix &weights)
 {
     for (int i = 0; i < layer.m_neurons.size(); i++) {
-        connect(layer.m_neurons[i], weights.getRowAt(i));
+        connect(*layer.m_neurons[i], weights.getRowAt(i));
     }
 }
 

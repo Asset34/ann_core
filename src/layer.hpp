@@ -24,7 +24,7 @@ public:
 
     Vector getSignals() const;
 
-    void connect(Neuron *neuron, const Vector &weights);
+    void connect(Neuron &neuron, const Vector &weights);
     void connect(Layer &layer, const Matrix &weights);
     void connect1to1(Layer &layer, const Vector &weights);
 
