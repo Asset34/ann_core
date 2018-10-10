@@ -17,9 +17,6 @@ public:
     double operator[](int index) const;
     double &operator[](int index);
 
-    void resize(int n);
-    Vector resized(int n) const;
-
     std::string getString() const;
 
 private:

@@ -73,28 +73,22 @@ Vector Layer::getSignals() const
 
 void Layer::connect(Neuron *neuron, const Vector &weights)
 {
-    Vector resized = weights.resized(m_neurons.size());
-
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->connect(*neuron, resized[i]);
+        m_neurons[i]->connect(*neuron, weights[i]);
     }
 }
 
 void Layer::connect(Layer &layer, const Matrix &weights)
 {
-    Matrix resized = weights.resized(layer.m_neurons.size(), m_neurons.size());
-
     for (int i = 0; i < layer.m_neurons.size(); i++) {
-        connect(layer.m_neurons[i], resized.getRowAt(i));
+        connect(layer.m_neurons[i], weights.getRowAt(i));
     }
 }
 
 void Layer::connect1to1(Layer &layer, const Vector &weights)
 {
-    Vector resized = weights.resized(m_neurons.size());
-
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->connect(*layer.m_neurons[i], resized[i]);
+        m_neurons[i]->connect(*layer.m_neurons[i], weights[i]);
     }
 }
 

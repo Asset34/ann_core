@@ -42,10 +42,8 @@ double Neuron::getBias() const
 
 void Neuron::setWeights(const Vector &weights)
 {
-    Vector resizedWeightVec = weights.resized(m_inputSynapses.size());
-
     for (int i = 0; i < m_inputSynapses.size(); i++) {
-        m_inputSynapses[i].setWeight(resizedWeightVec[i]);
+        m_inputSynapses[i].setWeight(weights[i]);
     }
 }
 

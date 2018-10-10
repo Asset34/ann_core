@@ -30,19 +30,6 @@ double &Vector::operator[](int index)
     return m_values[index];
 }
 
-void Vector::resize(int n)
-{
-    m_values.resize(n);
-}
-
-Vector Vector::resized(int n) const
-{
-    Vector resizedVec(*this);
-    resizedVec.resize(n);
-
-    return resizedVec;
-}
-
 std::string Vector::getString() const
 {
     std::stringstream ss;

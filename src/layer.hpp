@@ -2,8 +2,6 @@
 #define LAYER_HPP
 
 #include <vector>
-#include <string>
-#include <sstream>
 
 #include "transferfunc.hpp"
 #include "neuron.hpp"

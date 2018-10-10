@@ -36,9 +36,7 @@ Vector &Matrix::operator[](int row)
 
 void Matrix::setRowAt(int index, const Vector &row)
 {
-    Vector resizedRow = row.resized(m_columnCount);
-
-    m_rows[index] = resizedRow;
+    m_rows[index] = row;
 }
 
 const Vector &Matrix::getRowAt(int index) const
@@ -48,10 +46,8 @@ const Vector &Matrix::getRowAt(int index) const
 
 void Matrix::setColumnAt(int index, const Vector &column)
 {
-    Vector resizedColumn = column.resized(m_rowCount);
-
     for (int i = 0; i < m_rowCount; i++) {
-        m_rows[i][index] = resizedColumn[i];
+        m_rows[i][index] = column[i];
     }
 }
 
@@ -64,23 +60,6 @@ Vector Matrix::getColumnAt(int index) const
     }
 
     return column;
-}
-
-void Matrix::resize(int rowCount, int columnCount)
-{
-    m_rows.resize(rowCount);
-
-    for (int i = 0; i < columnCount; i++) {
-        m_rows[i].resize(columnCount);
-    }
-}
-
-Matrix Matrix::resized(int rowCount, int columnCount) const
-{
-    Matrix resizedMatrix(*this);
-    resizedMatrix.resize(rowCount, columnCount);
-
-    return resizedMatrix;
 }
 
 std::string Matrix::getString() const

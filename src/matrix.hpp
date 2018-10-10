@@ -25,9 +25,6 @@ public:
     void setColumnAt(int index, const Vector &column);
     Vector getColumnAt(int index) const;
 
-    void resize(int rowCount, int columnCount);
-    Matrix resized(int rowCount, int columnCount) const;
-
     std::string getString() const;
 
 private:
