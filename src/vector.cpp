@@ -1,5 +1,7 @@
 #include "vector.hpp"
 
+#include <sstream>
+
 Vector::Vector(int n)
     : m_values(n)
 {

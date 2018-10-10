@@ -1,4 +1,5 @@
 #include "inputlayer.hpp"
+#include "inputneuron.hpp"
 
 InputLayer::InputLayer(int n)
 {

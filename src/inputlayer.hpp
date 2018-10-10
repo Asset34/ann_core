@@ -3,7 +3,6 @@
 
 #include "layer.hpp"
 #include "vector.hpp"
-#include "inputneuron.hpp"
 
 class InputLayer : public Layer
 {

@@ -1,5 +1,7 @@
 #include "matrix.hpp"
 
+#include <sstream>
+
 Matrix::Matrix(int rowCount, int columnCount)
     : m_rowCount(rowCount),
       m_columnCount(columnCount),
