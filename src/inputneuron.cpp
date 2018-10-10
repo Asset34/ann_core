@@ -22,5 +22,6 @@ void InputNeuron::computeSignal()
 
 void InputNeuron::setSignal(double signal)
 {
+    m_computedSignal= signal;
     m_axon.setSignal(signal);
 }
