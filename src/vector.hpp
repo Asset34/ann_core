@@ -8,9 +8,9 @@
 class Vector
 {
 public:
-    Vector();
     Vector(int n);
     Vector(int n, double val);
+    Vector(const std::vector<double> &valueVec);
 
     int getCount() const;
 

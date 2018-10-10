@@ -1,9 +1,5 @@
 #include "vector.hpp"
 
-Vector::Vector()
-{
-}
-
 Vector::Vector(int n)
     : m_values(n)
 {
@@ -11,6 +7,11 @@ Vector::Vector(int n)
 
 Vector::Vector(int n, double val)
     : m_values(n, val)
+{
+}
+
+Vector::Vector(const std::vector<double> &valueVec)
+    : m_values(valueVec)
 {
 }
 
