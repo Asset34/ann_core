@@ -18,6 +18,9 @@ Layer::Layer(int n, TransferFunc *tf, double bias)
 
 Layer::~Layer()
 {
+    for (int i = 0; i < m_neurons.size(); i++) {
+        delete m_neurons[i];
+    }
 }
 
 Neuron *Layer::getAt(int index)
