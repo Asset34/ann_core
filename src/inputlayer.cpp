@@ -9,11 +9,11 @@ InputLayer::InputLayer(int n)
     }
 }
 
-void InputLayer::setSignals(const Vector &signalVec)
+void InputLayer::setSignals(const Vector &siignals)
 {
-    Vector resizedSignalVec = signalVec.resized(m_neurons.size());
+    Vector resized = siignals.resized(m_neurons.size());
 
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setSignal(resizedSignalVec[i]);
+        m_neurons[i]->setSignal(resized[i]);
     }
 }

@@ -1,18 +1,18 @@
 #include "layer.hpp"
 
-Layer::Layer(int n, ActivationFunction *func)
+Layer::Layer(int n, TransferFunc *tf)
     : m_neurons(n)
 {
     for (int i = 0; i < n; i++) {
-        m_neurons[i] = new Neuron(func);
+        m_neurons[i] = new Neuron(tf);
     }
 }
 
-Layer::Layer(int n, ActivationFunction *func, double bias)
+Layer::Layer(int n, TransferFunc *tf, double bias)
     : m_neurons(n)
 {
     for (int i = 0; i < n; i++) {
-        m_neurons[i] = new Neuron(func, bias);
+        m_neurons[i] = new Neuron(tf, bias);
     }
 }
 
@@ -20,10 +20,15 @@ Layer::~Layer()
 {
 }
 
-void Layer::setActivationFunc(ActivationFunction *func)
+Neuron *Layer::getAt(int index)
+{
+    return m_neurons[index];
+}
+
+void Layer::setTransferFunc(TransferFunc *tf)
 {
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setActivationFunc(func);
+        m_neurons[i]->setTransferFunc(tf);
     }
 }
 
@@ -34,62 +39,59 @@ void Layer::setBias(double bias)
     }
 }
 
-Neuron *Layer::getAt(int index)
-{
-    return m_neurons[index];
-}
-
-void Layer::setWeights(const Matrix &weightMatrix)
+void Layer::setWeights(const Matrix &weights)
 {
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setWeights(weightMatrix.getRowAt(i));
+        m_neurons[i]->setWeights(weights.getRowAt(i));
     }
 }
 
 Matrix Layer::getWeights() const
 {
-    Matrix weightMatrix(m_neurons.size(), getMaxSynapseCount());
+    Matrix weights(m_neurons.size(), getMaxSynapseCount());
 
     for (int i = 0; i < m_neurons.size(); i++) {
-        weightMatrix.setRowAt(i, m_neurons[i]->getWeights());
+        weights.setRowAt(i, m_neurons[i]->getWeights());
     }
+
+    return weights;
 }
 
 Vector Layer::getSignals() const
 {
-    Vector signalVec(m_neurons.size());
+    Vector siignals(m_neurons.size());
 
     for (int i = 0; i < m_neurons.size(); i++) {
-        signalVec[i] = m_neurons[i]->getSignal();
+        siignals[i] = m_neurons[i]->getSignal();
     }
 
-    return signalVec;
+    return siignals;
 }
 
-void Layer::connectAll(Neuron *neuron, const Vector &weightVec)
+void Layer::connect(Neuron *neuron, const Vector &weights)
 {
-    Vector resizedWeightVec = weightVec.resized(m_neurons.size());
+    Vector resized = weights.resized(m_neurons.size());
 
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->connect(*neuron, resizedWeightVec[i]);
+        m_neurons[i]->connect(*neuron, resized[i]);
     }
 }
 
-void Layer::connectAll(Layer &layer, const Matrix &weightMatrix)
+void Layer::connect(Layer &layer, const Matrix &weights)
 {
-    Matrix resizedWeightMatrix = weightMatrix.resized(layer.m_neurons.size(), m_neurons.size());
+    Matrix resized = weights.resized(layer.m_neurons.size(), m_neurons.size());
 
     for (int i = 0; i < layer.m_neurons.size(); i++) {
-        connectAll(layer.m_neurons[i], resizedWeightMatrix.getRowAt(i));
+        connect(layer.m_neurons[i], resized.getRowAt(i));
     }
 }
 
-void Layer::connectOneByOne(Layer &layer, const Vector &weightVec)
+void Layer::connect1to1(Layer &layer, const Vector &weights)
 {
-    Vector resizedWeightVec = weightVec.resized(m_neurons.size());
+    Vector resized = weights.resized(m_neurons.size());
 
     for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->connect(*layer.m_neurons[i], resizedWeightVec[i]);
+        m_neurons[i]->connect(*layer.m_neurons[i], resized[i]);
     }
 }
 

@@ -3,23 +3,23 @@
 
 #include <vector>
 
-#include "activationfunction.hpp"
+#include "transferfunc.hpp"
 #include "vector.hpp"
 
 class Neuron
 {
 public:
-    Neuron(ActivationFunction *func);
-    Neuron(ActivationFunction *func, double bias);
+    Neuron(const TransferFunc *tf);
+    Neuron(const TransferFunc *tf, double bias);
     virtual ~Neuron();
 
-    void setActivationFunc(ActivationFunction *func);
-    ActivationFunction *getActivationFunc() const;
+    void setTransferFunc(const TransferFunc *tf);
+    const TransferFunc *getTransferFunc() const;
 
     void setBias(double bias);
     double getBias() const;
 
-    void setWeights(const Vector &weightVec);
+    void setWeights(const Vector &weights);
     Vector getWeights() const;
 
     int getSynapseCount() const;
@@ -34,10 +34,10 @@ public:
     void sendSignal();
 
 protected:
-    class Akson
+    class Axon
     {
     public:
-        Akson();
+        Axon();
 
         void setSignal(double signal);
         double getSignal() const;
@@ -50,8 +50,8 @@ protected:
     class Synapse
     {
     public:
-        explicit Synapse(const Akson *akson);
-        Synapse(const Akson *akson, double weight);
+        explicit Synapse(const Axon *axon);
+        Synapse(const Axon *axon, double weight);
 
         void setWeight(double weight);
         double getWeight() const;
@@ -60,17 +60,17 @@ protected:
         double receiveWeightedSignal() const;
 
     private:
-        const Akson *m_inputAkson;
+        const Axon *m_inputAxon;
         double m_weight;
 
     };
 
     std::vector<Synapse> m_inputSynapses;
-    ActivationFunction *m_activationFunc;
+    const TransferFunc *m_tf;
     double m_bias;
-    Akson m_akson;
+    Axon m_axon;
 
-    double m_resultSignal;
+    double m_computedSignal;
 };
 
 #endif // NEURON_HPP

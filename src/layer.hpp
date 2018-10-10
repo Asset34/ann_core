@@ -5,30 +5,30 @@
 #include <string>
 #include <sstream>
 
-#include "activationfunction.hpp"
+#include "transferfunc.hpp"
 #include "neuron.hpp"
 #include "matrix.hpp"
 
 class Layer
 {
 public:
-    Layer(int n, ActivationFunction *func);
-    Layer(int n, ActivationFunction *func, double bias);
+    Layer(int n, TransferFunc *tf);
+    Layer(int n, TransferFunc *tf, double bias);
     virtual ~Layer();
-
-    void setActivationFunc(ActivationFunction *func);
-    void setBias(double bias);
 
     Neuron *getAt(int index);
 
-    void setWeights(const Matrix &weightMatrix);
+    void setTransferFunc(TransferFunc *tf);
+    void setBias(double bias);
+
+    void setWeights(const Matrix &weights);
     Matrix getWeights() const;
 
     Vector getSignals() const;
 
-    void connectAll(Neuron *neuron, const Vector &weightVec);
-    void connectAll(Layer &layer, const Matrix &weightMatrix);
-    void connectOneByOne(Layer &layer, const Vector &weightVec);
+    void connect(Neuron *neuron, const Vector &weights);
+    void connect(Layer &layer, const Matrix &weights);
+    void connect1to1(Layer &layer, const Vector &weights);
 
     void computeSignals();
     void sendSignals();

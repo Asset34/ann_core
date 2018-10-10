@@ -8,7 +8,7 @@ InputNeuron::InputNeuron()
 InputNeuron::InputNeuron(double signal)
     : Neuron(nullptr)
 {
-    m_akson.setSignal(signal);
+    m_axon.setSignal(signal);
 }
 
 InputNeuron::~InputNeuron()
@@ -22,5 +22,5 @@ void InputNeuron::computeSignal()
 
 void InputNeuron::setSignal(double signal)
 {
-    m_resultSignal = signal;
+    m_axon.setSignal(signal);
 }

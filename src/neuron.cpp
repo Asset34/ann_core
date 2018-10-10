@@ -1,16 +1,16 @@
 #include "neuron.hpp"
 
-Neuron::Neuron(ActivationFunction *func)
-    : m_activationFunc(func),
+Neuron::Neuron(const TransferFunc *tf)
+    : m_tf(tf),
       m_bias(0.0),
-      m_resultSignal(0.0)
+      m_computedSignal(0.0)
 {
 }
 
-Neuron::Neuron(ActivationFunction *func, double bias)
-    : m_activationFunc(func),
+Neuron::Neuron(const TransferFunc *tf, double bias)
+    : m_tf(tf),
       m_bias(bias),
-      m_resultSignal(0.0)
+      m_computedSignal(0.0)
 {
 }
 
@@ -18,14 +18,14 @@ Neuron::~Neuron()
 {
 }
 
-void Neuron::setActivationFunc(ActivationFunction *func)
+void Neuron::setTransferFunc(const TransferFunc *tf)
 {
-    m_activationFunc = func;
+    m_tf = tf;
 }
 
-ActivationFunction *Neuron::getActivationFunc() const
+const TransferFunc *Neuron::getTransferFunc() const
 {
-    return m_activationFunc;
+    return m_tf;
 }
 
 void Neuron::setBias(double bias)
@@ -33,14 +33,16 @@ void Neuron::setBias(double bias)
     m_bias = bias;
 }
 
+#include <Qvector>
+
 double Neuron::getBias() const
 {
     return m_bias;
 }
 
-void Neuron::setWeights(const Vector &weightVec)
+void Neuron::setWeights(const Vector &weights)
 {
-    Vector resizedWeightVec = weightVec.resized(m_inputSynapses.size());
+    Vector resizedWeightVec = weights.resized(m_inputSynapses.size());
 
     for (int i = 0; i < m_inputSynapses.size(); i++) {
         m_inputSynapses[i].setWeight(resizedWeightVec[i]);
@@ -70,12 +72,12 @@ void Neuron::setSignal(double signal)
 
 double Neuron::getSignal() const
 {
-    return m_akson.getSignal();
+    return m_axon.getSignal();
 }
 
 void Neuron::connect(Neuron &neuron, double weight)
 {
-    Synapse synapse(&m_akson, weight);
+    Synapse synapse(&m_axon, weight);
     neuron.m_inputSynapses.push_back(synapse);
 }
 
@@ -92,10 +94,10 @@ void Neuron::computeSignal()
         sum += m_inputSynapses[i].receiveWeightedSignal();
     }
 
-    m_resultSignal = m_activationFunc->evaluate(sum) + m_bias;
+    m_computedSignal = m_tf->evaluate(sum) + m_bias;
 }
 
 void Neuron::sendSignal()
 {
-    m_akson.setSignal(m_resultSignal);
+    m_axon.setSignal(m_computedSignal);
 }

@@ -1,13 +1,13 @@
 #include "neuron.hpp"
 
-Neuron::Synapse::Synapse(const Neuron::Akson *akson)
-    : m_inputAkson(akson),
+Neuron::Synapse::Synapse(const Neuron::Axon *axon)
+    : m_inputAxon(axon),
       m_weight(1.0)
 {
 }
 
-Neuron::Synapse::Synapse(const Akson *akson, double weight)
-    : m_inputAkson(akson),
+Neuron::Synapse::Synapse(const Axon *axon, double weight)
+    : m_inputAxon(axon),
       m_weight(weight)
 {
 }
@@ -24,10 +24,10 @@ double Neuron::Synapse::getWeight() const
 
 double Neuron::Synapse::receiveSignal() const
 {
-    return m_inputAkson->getSignal();
+    return m_inputAxon->getSignal();
 }
 
 double Neuron::Synapse::receiveWeightedSignal() const
 {
-    return m_inputAkson->getSignal() * m_weight;
+    return m_inputAxon->getSignal() * m_weight;
 }
