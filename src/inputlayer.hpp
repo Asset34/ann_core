@@ -9,8 +9,9 @@ class InputLayer : public Layer
 {
 public:
     InputLayer(int n);
+    virtual ~InputLayer();
 
-    void setSignals(const Vector &signalVec);
+    void setSignals(const Vector &siignals);
 
 };
 
