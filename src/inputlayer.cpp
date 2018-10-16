@@ -25,7 +25,7 @@ InputLayer::~InputLayer()
 {
 }
 
-void InputLayer::setInputs(const InputLayer::vec &inputs)
+void InputLayer::setInputs(const vec &inputs)
 {
     for (size_t i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->setInput(inputs[i]);

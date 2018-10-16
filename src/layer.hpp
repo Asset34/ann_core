@@ -1,16 +1,11 @@
 #ifndef LAYER_HPP
 #define LAYER_HPP
 
-#include <vector>
-
+#include "entities.hpp"
 #include "neuron.hpp"
 
 class Layer
 {
-    typedef std::function<double(double)> activation_func;
-    typedef std::vector<double> vec;
-    typedef std::vector<std::vector<double>> mat;
-
 public:
     Layer(size_t n);
     Layer(size_t n,

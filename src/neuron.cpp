@@ -43,7 +43,7 @@ void Neuron::setOutputWeights(const vec &weights)
     }
 }
 
-Neuron::vec Neuron::getOutputWeights() const
+vec Neuron::getOutputWeights() const
 {
     vec weights(m_outputs.size());
 
@@ -61,7 +61,7 @@ void Neuron::setInputWeights(const vec &weights)
     }
 }
 
-Neuron::vec Neuron::getInputWeights() const
+vec Neuron::getInputWeights() const
 {
     vec weights(m_inputs.size());
 
@@ -72,7 +72,7 @@ Neuron::vec Neuron::getInputWeights() const
     return weights;
 }
 
-void Neuron::setActivationFunc(Neuron::activation_func activationFunc)
+void Neuron::setActivationFunc(activation_func activationFunc)
 {
     m_activationFunc = activationFunc;
 }

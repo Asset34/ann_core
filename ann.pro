@@ -1,4 +1,5 @@
-TEMPLATE = app
+TEMPLATE = lib
+CONFIG += staticlib
 
 SOURCES += \
     src/neuron.cpp \
@@ -12,4 +13,5 @@ HEADERS += \
     src/neuron.hpp \
     src/inputneuron.hpp \
     src/layer.hpp \
-    src/inputlayer.hpp
+    src/inputlayer.hpp \
+    src/entities.hpp

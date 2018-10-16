@@ -1,14 +1,10 @@
 #ifndef NEURON_HPP
 #define NEURON_HPP
 
-#include <vector>
-#include <functional>
+#include "entities.hpp"
 
 class Neuron
 {
-    typedef std::function<double(double)> activation_func;
-    typedef std::vector<double> vec;
-
 public:
     Neuron();
     Neuron(activation_func activationFunc,

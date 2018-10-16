@@ -53,7 +53,7 @@ void Layer::setInputWeights(const mat &weights)
     }
 }
 
-Layer::mat Layer::getInputWeights() const
+mat Layer::getInputWeights() const
 {
     mat weights(m_neurons.size());
 
@@ -71,7 +71,7 @@ void Layer::setOutputWeights(const mat &weights)
     }
 }
 
-Layer::mat Layer::getOutputWeights() const
+mat Layer::getOutputWeights() const
 {
     mat weights(m_neurons.size());
 
@@ -82,7 +82,7 @@ Layer::mat Layer::getOutputWeights() const
     return weights;
 }
 
-Layer::vec Layer::getOutputs() const
+vec Layer::getOutputs() const
 {
     vec outputs(m_neurons.size());
 
