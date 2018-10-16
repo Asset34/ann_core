@@ -21,6 +21,9 @@ Neuron::Neuron(activation_func activationFunc,
 
 Neuron::~Neuron()
 {
+    for (size_t i = 0; i < m_outputs.size(); i++) {
+        delete m_outputs[i];
+    }
 }
 
 int Neuron::getInputCount() const
@@ -28,19 +31,42 @@ int Neuron::getInputCount() const
     return m_inputs.size();
 }
 
-void Neuron::setWeights(const vec &weights)
+int Neuron::getOutputCount() const
 {
-    for (size_t i = 0; i < m_inputs.size(); i++) {
-        m_inputs[i].setWeight(weights[i]);
+    return m_outputs.size();
+}
+
+void Neuron::setOutputWeights(const vec &weights)
+{
+    for (size_t i = 0; i < m_outputs.size(); i++) {
+        m_outputs[i]->setWeight(weights[i]);
     }
 }
 
-Neuron::vec Neuron::getWeights() const
+Neuron::vec Neuron::getOutputWeights() const
 {
-    std::vector<double> weights(m_inputs.size());
+    vec weights(m_outputs.size());
+
+    for (size_t i = 0; i < m_outputs.size(); i++) {
+        weights[i] = m_outputs[i]->getWeight();
+    }
+
+    return weights;
+}
+
+void Neuron::setInputWeights(const vec &weights)
+{
+    for (size_t i = 0; i < m_inputs.size(); i++) {
+        m_inputs[i]->setWeight(weights[i]);
+    }
+}
+
+Neuron::vec Neuron::getInputWeights() const
+{
+    vec weights(m_inputs.size());
 
     for (size_t i = 0; i < m_inputs.size(); i++) {
-        weights[i] = m_inputs[i].getWeight();
+        weights[i] = m_inputs[i]->getWeight();
     }
 
     return weights;
@@ -73,7 +99,9 @@ double Neuron::getOutput() const
 
 void Neuron::connect(Neuron *neuron, double weight)
 {
-    Synapse synapse(this, weight);
+    Synapse *synapse = new Synapse(this, weight);
+
+    m_outputs.push_back(synapse);
     neuron->m_inputs.push_back(synapse);
 }
 
@@ -81,7 +109,7 @@ void Neuron::compute()
 {
     double sum = 0.0;
     for (size_t i = 0; i < m_inputs.size(); i++) {
-        sum += m_inputs[i].recvWeighted();
+        sum += m_inputs[i]->recvWeighted();
     }
 
     m_memory = m_activationFunc(sum + m_bias);

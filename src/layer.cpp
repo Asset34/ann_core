@@ -46,19 +46,37 @@ void Layer::setBias(double bias)
     }
 }
 
-void Layer::setWeights(const mat &weights)
+void Layer::setInputWeights(const mat &weights)
 {
     for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setWeights(weights[i]);
+        m_neurons[i]->setInputWeights(weights[i]);
     }
 }
 
-Layer::mat Layer::getWeights() const
+Layer::mat Layer::getInputWeights() const
 {
     mat weights(m_neurons.size());
 
     for (size_t i = 0; i < m_neurons.size(); i++) {
-        weights[i] = m_neurons[i]->getWeights();
+        weights[i] = m_neurons[i]->getInputWeights();
+    }
+
+    return weights;
+}
+
+void Layer::setOutputWeights(const mat &weights)
+{
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i]->setOutputWeights(weights[i]);
+    }
+}
+
+Layer::mat Layer::getOutputWeights() const
+{
+    mat weights(m_neurons.size());
+
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        weights[i] = m_neurons[i]->getOutputWeights();
     }
 
     return weights;

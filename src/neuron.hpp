@@ -16,9 +16,13 @@ public:
     virtual ~Neuron();
 
     int getInputCount() const;
+    int getOutputCount() const;
 
-    void setWeights(const vec &weights);
-    vec getWeights() const;
+    void setInputWeights(const vec &weights);
+    vec getInputWeights() const;
+
+    void setOutputWeights(const vec &weights);
+    vec getOutputWeights() const;
 
     void setActivationFunc(activation_func activationFunc);
 
@@ -52,10 +56,11 @@ protected:
 
     };
 
-    std::vector<Synapse> m_inputs;
+    std::vector<Synapse*> m_inputs;
     activation_func m_activationFunc;
     double m_bias;
     double m_output;
+    std::vector<Synapse*> m_outputs;
 
     double m_memory;
 

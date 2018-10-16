@@ -23,8 +23,11 @@ public:
     void setActivationFunc(activation_func activationFunc);
     void setBias(double bias);
 
-    void setWeights(const mat &weights);
-    mat getWeights() const;
+    void setInputWeights(const mat &weights);
+    mat getInputWeights() const;
+
+    void setOutputWeights(const mat &weights);
+    mat getOutputWeights() const;
 
     vec getOutputs() const;
 
