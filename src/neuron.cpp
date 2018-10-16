@@ -1,7 +1,7 @@
 #include "neuron.hpp"
 
-Neuron::Neuron()
-    : m_bias(0.0),
+Neuron::Neuron(double bias)
+    : m_bias(bias),
       m_memory(0.0)
 {
     m_activationFunc =

@@ -2,11 +2,11 @@
 
 #include <algorithm>
 
-Layer::Layer(size_t n)
+Layer::Layer(size_t n, double bias)
     : m_neurons(n)
 {
     for (size_t i = 0; i < n; i++) {
-        m_neurons[i] = new Neuron();
+        m_neurons[i] = new Neuron(bias);
     }
 }
 

@@ -6,7 +6,7 @@
 class Neuron
 {
 public:
-    Neuron();
+    Neuron(double bias = 0.0);
     Neuron(activation_func activationFunc,
            double bias = 0.0);
     virtual ~Neuron();

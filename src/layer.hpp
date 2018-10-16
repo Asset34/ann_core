@@ -7,7 +7,7 @@
 class Layer
 {
 public:
-    Layer(size_t n);
+    Layer(size_t n, double bias = 0.0);
     Layer(size_t n,
           activation_func activationFunc,
           double bias = 0.0);
