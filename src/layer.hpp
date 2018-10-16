@@ -26,6 +26,8 @@ public:
     void setWeights(const mat &weights);
     mat getWeights() const;
 
+    vec getOutputs() const;
+
     void connectAllToOne(Neuron *neuron, const vec &weights = vec());
     void connectAllToAll(Layer &layer, const mat &weights = mat());
     void connectOneToOne(Layer &layer, const vec &weights = vec());

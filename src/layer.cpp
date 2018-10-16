@@ -64,6 +64,17 @@ Layer::mat Layer::getWeights() const
     return weights;
 }
 
+Layer::vec Layer::getOutputs() const
+{
+    vec outputs(m_neurons.size());
+
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        outputs[i] = m_neurons[i]->getOutput();
+    }
+
+    return outputs;
+}
+
 void Layer::connectAllToOne(Neuron *neuron, const vec &weights)
 {
     for (size_t i = 0; i < m_neurons.size(); i++) {
