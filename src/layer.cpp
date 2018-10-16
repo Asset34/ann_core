@@ -1,24 +1,28 @@
 #include "layer.hpp"
 
-Layer::Layer(int n, TransferFunc *tf)
+#include <algorithm>
+
+Layer::Layer(size_t n)
     : m_neurons(n)
 {
-    for (int i = 0; i < n; i++) {
-        m_neurons[i] = new Neuron(tf);
+    for (size_t i = 0; i < n; i++) {
+        m_neurons[i] = new Neuron();
     }
 }
 
-Layer::Layer(int n, TransferFunc *tf, double bias)
+Layer::Layer(size_t n,
+             activation_func activationFunc,
+             double bias)
     : m_neurons(n)
 {
-    for (int i = 0; i < n; i++) {
-        m_neurons[i] = new Neuron(tf, bias);
+    for (size_t i = 0; i < n; i++) {
+        m_neurons[i] = new Neuron(activationFunc, bias);
     }
 }
 
 Layer::~Layer()
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
+    for (size_t i = 0; i < m_neurons.size(); i++) {
         delete m_neurons[i];
     }
 }
@@ -28,103 +32,77 @@ Neuron *Layer::getAt(int index)
     return m_neurons[index];
 }
 
-void Layer::setTransferFunc(TransferFunc *tf)
+void Layer::setActivationFunc(activation_func activationFunc)
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setTransferFunc(tf);
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i]->setActivationFunc(activationFunc);
     }
 }
 
 void Layer::setBias(double bias)
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
+    for (size_t i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->setBias(bias);
     }
 }
 
-void Layer::setWeights(const Matrix &weights)
+void Layer::setWeights(const mat &weights)
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setWeights(weights.getRowAt(i));
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i]->setWeights(weights[i]);
     }
 }
 
-Matrix Layer::getWeights() const
+Layer::mat Layer::getWeights() const
 {
-    Matrix weights(m_neurons.size(), getMaxSynapseCount());
+    mat weights(m_neurons.size());
 
-    for (int i = 0; i < m_neurons.size(); i++) {
-        weights.setRowAt(i, m_neurons[i]->getWeights());
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        weights[i] = m_neurons[i]->getWeights();
     }
 
     return weights;
 }
 
-Vector Layer::getSignals() const
+void Layer::connectAllToOne(Neuron &neuron, const vec &weights)
 {
-    Vector siignals(m_neurons.size());
-
-    for (int i = 0; i < m_neurons.size(); i++) {
-        siignals[i] = m_neurons[i]->getSignal();
-    }
-
-    return siignals;
-}
-
-void Layer::connect(Neuron &neuron, const Vector &weights)
-{
-    for (int i = 0; i < m_neurons.size(); i++) {
+    for (size_t i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->connect(neuron, weights[i]);
     }
 }
 
-void Layer::connect(Layer &layer, const Matrix &weights)
+void Layer::connectAllToAll(Layer &layer, const mat &weights)
 {
-    for (int i = 0; i < layer.m_neurons.size(); i++) {
-        connect(*layer.m_neurons[i], weights.getRowAt(i));
+    for (size_t i = 0; i < layer.m_neurons.size(); i++) {
+        connectAllToOne(*layer.m_neurons[i], weights[i]);
     }
 }
 
-void Layer::connect1to1(Layer &layer, const Vector &weights)
+void Layer::connectOneToOne(Layer &layer, const vec &weights)
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
+    size_t size = std::min(m_neurons.size(), layer.m_neurons.size());
+
+    for (size_t i = 0; i < size; i++) {
         m_neurons[i]->connect(*layer.m_neurons[i], weights[i]);
     }
 }
 
-void Layer::computeSignals()
+void Layer::compute()
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->computeSignal();
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i]->compute();
     }
 }
 
-void Layer::sendSignals()
+void Layer::send()
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->sendSignal();
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i]->send();
     }
 }
 
-void Layer::moveSignals()
+void Layer::move()
 {
-    computeSignals();
-    sendSignals();
-}
-
-Layer::Layer()
-{
-}
-
-int Layer::getMaxSynapseCount() const
-{
-    int count = 0;
-
-    for (int i = 0; i < m_neurons.size(); i++) {
-        if (m_neurons[i]->getSynapseCount() > count) {
-            count = m_neurons[i]->getSynapseCount();
-        }
-    }
-
-    return count;
+    compute();
+    send();
 }

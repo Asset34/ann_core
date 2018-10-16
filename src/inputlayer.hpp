@@ -2,15 +2,17 @@
 #define INPUTLAYER_HPP
 
 #include "layer.hpp"
-#include "vector.hpp"
 
 class InputLayer : public Layer
 {
+    typedef std::vector<double> vec;
+
 public:
-    InputLayer(int n);
+    InputLayer(size_t n);
+    InputLayer(const vec &inputs);
     virtual ~InputLayer();
 
-    void setSignals(const Vector &siignals);
+    void setInputs(const vec &inputs);
 
 };
 

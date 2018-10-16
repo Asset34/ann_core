@@ -1,12 +1,23 @@
 #include "inputlayer.hpp"
 #include "inputneuron.hpp"
 
-InputLayer::InputLayer(int n)
+InputLayer::InputLayer(size_t n)
+    : Layer(0)
 {
     m_neurons.resize(n);
 
-    for (int i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
         m_neurons[i] = new InputNeuron;
+    }
+}
+
+InputLayer::InputLayer(const vec &inputs)
+    : Layer(0)
+{
+    m_neurons.resize(inputs.size());
+
+    for (size_t i = 0; i < inputs.size(); i++) {
+        m_neurons[i] = new InputNeuron(inputs[i]);
     }
 }
 
@@ -14,9 +25,9 @@ InputLayer::~InputLayer()
 {
 }
 
-void InputLayer::setSignals(const Vector &siignals)
+void InputLayer::setInputs(const InputLayer::vec &inputs)
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setSignal(siignals[i]);
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i]->setInput(inputs[i]);
     }
 }

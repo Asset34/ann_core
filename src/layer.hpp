@@ -3,42 +3,39 @@
 
 #include <vector>
 
-#include "transferfunc.hpp"
 #include "neuron.hpp"
-#include "matrix.hpp"
 
 class Layer
 {
+    typedef std::function<double(double)> activation_func;
+    typedef std::vector<double> vec;
+    typedef std::vector<std::vector<double>> mat;
+
 public:
-    Layer(int n, TransferFunc *tf);
-    Layer(int n, TransferFunc *tf, double bias);
+    Layer(size_t n);
+    Layer(size_t n,
+          activation_func activationFunc,
+          double bias = 0.0);
     virtual ~Layer();
 
     Neuron *getAt(int index);
 
-    void setTransferFunc(TransferFunc *tf);
+    void setActivationFunc(activation_func activationFunc);
     void setBias(double bias);
 
-    void setWeights(const Matrix &weights);
-    Matrix getWeights() const;
+    void setWeights(const mat &weights);
+    mat getWeights() const;
 
-    Vector getSignals() const;
+    void connectAllToOne(Neuron &neuron, const vec &weights = vec());
+    void connectAllToAll(Layer &layer, const mat &weights = mat());
+    void connectOneToOne(Layer &layer, const vec &weights = vec());
 
-    void connect(Neuron &neuron, const Vector &weights);
-    void connect(Layer &layer, const Matrix &weights);
-    void connect1to1(Layer &layer, const Vector &weights);
-
-    void computeSignals();
-    void sendSignals();
-    void moveSignals();
+    void compute();
+    void send();
+    void move();
 
 protected:
-    Layer();
-
     std::vector<Neuron*> m_neurons;
-
-private:
-    int getMaxSynapseCount() const;
 
 };
 

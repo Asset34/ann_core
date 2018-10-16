@@ -1,27 +1,22 @@
 #include "inputneuron.hpp"
 
-InputNeuron::InputNeuron()
-    : Neuron(nullptr)
+InputNeuron::InputNeuron(double input)
+    : Neuron()
 {
-}
-
-InputNeuron::InputNeuron(double signal)
-    : Neuron(nullptr)
-{
-    m_axon.setSignal(signal);
+    setInput(input);
 }
 
 InputNeuron::~InputNeuron()
 {
 }
 
-void InputNeuron::computeSignal()
+void InputNeuron::setInput(double input)
 {
-    // STUB
+    m_memory = input;
+    m_output = input;
 }
 
-void InputNeuron::setSignal(double signal)
+void InputNeuron::compute()
 {
-    m_computedSignal= signal;
-    m_axon.setSignal(signal);
+    // STUB
 }

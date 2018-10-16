@@ -2,75 +2,63 @@
 #define NEURON_HPP
 
 #include <vector>
-
-#include "transferfunc.hpp"
-#include "vector.hpp"
+#include <functional>
 
 class Neuron
 {
+    typedef std::function<double(double)> activation_func;
+    typedef std::vector<double> vec;
+
 public:
-    Neuron(const TransferFunc *tf);
-    Neuron(const TransferFunc *tf, double bias);
+    Neuron();
+    Neuron(activation_func activationFunc,
+           double bias = 0.0);
     virtual ~Neuron();
 
-    void setTransferFunc(const TransferFunc *tf);
-    const TransferFunc *getTransferFunc() const;
+    int getInputCount() const;
+
+    void setWeights(const vec &weights);
+    vec getWeights() const;
+
+    void setActivationFunc(activation_func activationFunc);
 
     void setBias(double bias);
     double getBias() const;
 
-    void setWeights(const Vector &weights);
-    Vector getWeights() const;
+    virtual void setInput(double input);
+    double getOutput() const;
 
-    int getSynapseCount() const;
+    void connect(Neuron &neuron, double weight = 0.0);
 
-    virtual void setSignal(double signal);
-    double getSignal() const;
-
-    void connect(Neuron &neuron, double weight);
-    static void connect(Neuron &n1, Neuron &n2, double weight);
-
-    virtual void computeSignal();
-    void sendSignal();
+    virtual void compute();
+    void send();
 
 protected:
-    class Axon
-    {
-    public:
-        Axon();
-
-        void setSignal(double signal);
-        double getSignal() const;
-
-    private:
-        double m_signal;
-
-    };
-
     class Synapse
     {
     public:
-        explicit Synapse(const Axon *axon);
-        Synapse(const Axon *axon, double weight);
+        explicit Synapse(const Neuron *neuron,
+                         double weight = 0.0);
 
         void setWeight(double weight);
         double getWeight() const;
 
-        double receiveSignal() const;
-        double receiveWeightedSignal() const;
+        double recv() const;
+        double recvWeighted() const;
 
     private:
-        const Axon *m_inputAxon;
+        const Neuron *m_neuron;
         double m_weight;
 
     };
 
-    std::vector<Synapse> m_inputSynapses;
-    const TransferFunc *m_tf;
+    std::vector<Synapse> m_inputs;
+    activation_func m_activationFunc;
     double m_bias;
-    Axon m_axon;
+    double m_output;
 
-    double m_computedSignal;
+    double m_memory;
+
 };
 
 #endif // NEURON_HPP
