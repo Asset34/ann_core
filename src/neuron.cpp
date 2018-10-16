@@ -71,20 +71,20 @@ double Neuron::getOutput() const
     return m_output;
 }
 
-void Neuron::connect(Neuron &neuron, double weight)
+void Neuron::connect(Neuron *neuron, double weight)
 {
-    Synapse synapse(&neuron, weight);
-    neuron.m_inputs.push_back(synapse);
+    Synapse synapse(this, weight);
+    neuron->m_inputs.push_back(synapse);
 }
 
 void Neuron::compute()
 {
     double sum = 0.0;
-    for (int i = 0; i < m_inputs.size(); i++) {
+    for (size_t i = 0; i < m_inputs.size(); i++) {
         sum += m_inputs[i].recvWeighted();
     }
 
-    m_memory = m_activationFunc(sum) + m_bias;
+    m_memory = m_activationFunc(sum + m_bias);
 }
 
 void Neuron::send()

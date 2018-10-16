@@ -64,18 +64,7 @@ Layer::mat Layer::getWeights() const
     return weights;
 }
 
-Layer::vec Layer::getOutputs() const
-{
-    vec outputs(m_neurons.size());
-
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        outputs[i] = m_neurons[i]->getOutput();
-    }
-
-    return outputs;
-}
-
-void Layer::connectAllToOne(Neuron &neuron, const vec &weights)
+void Layer::connectAllToOne(Neuron *neuron, const vec &weights)
 {
     for (size_t i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->connect(neuron, weights[i]);
@@ -85,7 +74,7 @@ void Layer::connectAllToOne(Neuron &neuron, const vec &weights)
 void Layer::connectAllToAll(Layer &layer, const mat &weights)
 {
     for (size_t i = 0; i < layer.m_neurons.size(); i++) {
-        connectAllToOne(*layer.m_neurons[i], weights[i]);
+        connectAllToOne(layer.m_neurons[i], weights[i]);
     }
 }
 
@@ -94,7 +83,7 @@ void Layer::connectOneToOne(Layer &layer, const vec &weights)
     size_t size = std::min(m_neurons.size(), layer.m_neurons.size());
 
     for (size_t i = 0; i < size; i++) {
-        m_neurons[i]->connect(*layer.m_neurons[i], weights[i]);
+        m_neurons[i]->connect(layer.m_neurons[i], weights[i]);
     }
 }
 

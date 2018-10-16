@@ -28,7 +28,7 @@ public:
     virtual void setInput(double input);
     double getOutput() const;
 
-    void connect(Neuron &neuron, double weight = 0.0);
+    void connect(Neuron *neuron, double weight = 0.0);
 
     virtual void compute();
     void send();
