@@ -7,8 +7,7 @@ class Neuron
 {
 public:
     Neuron(double bias = 0.0);
-    Neuron(activation_func activationFunc,
-           double bias = 0.0);
+    Neuron(activation_func func, double bias = 0.0);
     virtual ~Neuron();
 
     int getInputCount() const;
@@ -20,7 +19,7 @@ public:
     void setOutputWeights(const vec &weights);
     vec getOutputWeights() const;
 
-    void setActivationFunc(activation_func activationFunc);
+    void setActivationFunc(activation_func func);
 
     void setBias(double bias);
     double getBias() const;

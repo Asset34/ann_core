@@ -11,9 +11,8 @@ Neuron::Neuron(double bias)
         };
 }
 
-Neuron::Neuron(activation_func activationFunc,
-               double bias)
-    : m_activationFunc(activationFunc),
+Neuron::Neuron(activation_func func, double bias)
+    : m_activationFunc(func),
       m_bias(bias),
       m_memory(0.0)
 {
@@ -72,9 +71,9 @@ vec Neuron::getInputWeights() const
     return weights;
 }
 
-void Neuron::setActivationFunc(activation_func activationFunc)
+void Neuron::setActivationFunc(activation_func func)
 {
-    m_activationFunc = activationFunc;
+    m_activationFunc = func;
 }
 
 void Neuron::setBias(double bias)
