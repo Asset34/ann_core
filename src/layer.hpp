@@ -7,13 +7,11 @@
 class Layer
 {
 public:
-    Layer(size_t n, double bias = 0.0);
-    Layer(size_t n,
-          activation_func activationFunc,
-          double bias = 0.0);
+    Layer(size_t size, double bias = 0.0);
+    Layer(size_t size, activation_func func, double bias = 0.0);
     virtual ~Layer();
 
-    void setActivationFunc(activation_func activationFunc);
+    void setActivationFunc(activation_func func);
     void setBias(double bias);
 
     void setInputWeights(const mat &weights);
@@ -32,9 +30,17 @@ public:
     void send();
     void move();
 
+    void clear();
+    void rebuild(size_t size);
+
 protected:
     std::vector<Neuron*> m_neurons;
 
+private:
+    void build(size_t size);
+
+    activation_func m_activationFunc;
+    double m_bias;
 };
 
 #endif // LAYER_HPP

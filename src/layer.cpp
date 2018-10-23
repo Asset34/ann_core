@@ -2,40 +2,43 @@
 
 #include <algorithm>
 
-Layer::Layer(size_t n, double bias)
-    : m_neurons(n)
+Layer::Layer(size_t size, double bias)
+    : m_bias(bias)
 {
-    for (size_t i = 0; i < n; i++) {
-        m_neurons[i] = new Neuron(bias);
-    }
+    m_activationFunc =
+    [](double x) -> double
+    {
+        return x;
+    };
+
+    build(size);
 }
 
-Layer::Layer(size_t n,
-             activation_func activationFunc,
-             double bias)
-    : m_neurons(n)
+Layer::Layer(size_t size, activation_func func, double bias)
+    : m_activationFunc(func),
+      m_bias(bias)
 {
-    for (size_t i = 0; i < n; i++) {
-        m_neurons[i] = new Neuron(activationFunc, bias);
-    }
+    build(size);
 }
 
 Layer::~Layer()
 {
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        delete m_neurons[i];
-    }
+    clear();
 }
 
-void Layer::setActivationFunc(activation_func activationFunc)
+void Layer::setActivationFunc(activation_func func)
 {
+    m_activationFunc = func;
+
     for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setActivationFunc(activationFunc);
+        m_neurons[i]->setActivationFunc(func);
     }
 }
 
 void Layer::setBias(double bias)
 {
+    m_bias = bias;
+
     for (size_t i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->setBias(bias);
     }
@@ -129,4 +132,27 @@ void Layer::move()
 {
     compute();
     send();
+}
+
+void Layer::clear()
+{
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        delete m_neurons[i];
+    }
+
+    m_neurons.clear();
+}
+
+void Layer::rebuild(size_t size)
+{
+    clear();
+    build(size);
+}
+
+void Layer::build(size_t size)
+{
+    m_neurons.resize(size);
+    for (size_t i = 0; i < size; i++) {
+        m_neurons[i] = new Neuron(m_activationFunc, m_bias);
+    }
 }
