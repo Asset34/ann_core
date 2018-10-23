@@ -13,8 +13,6 @@ public:
           double bias = 0.0);
     virtual ~Layer();
 
-    Neuron *getAt(int index);
-
     void setActivationFunc(activation_func activationFunc);
     void setBias(double bias);
 

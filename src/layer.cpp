@@ -27,11 +27,6 @@ Layer::~Layer()
     }
 }
 
-Neuron *Layer::getAt(int index)
-{
-    return m_neurons[index];
-}
-
 void Layer::setActivationFunc(activation_func activationFunc)
 {
     for (size_t i = 0; i < m_neurons.size(); i++) {
