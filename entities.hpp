@@ -4,8 +4,8 @@
 #include <functional>
 #include <vector>
 
-typedef std::function<double (double)> ActivationFunc;
-typedef std::vector<double> WeightVec;
-typedef std::vector<std::vector<double>> WeightMat;
+using ActivationFunc = std::function<double (double)>;
+using WeightVec = std::vector<double>;
+using WeightMat = std::vector<std::vector<double>>;
 
 #endif // ENTITIES_HPP
