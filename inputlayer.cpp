@@ -19,7 +19,7 @@ InputLayer::InputLayer(const WeightVec &vec)
     }
 }
 
-void InputLayer::setInputs(const WeightVec &vec)
+void InputLayer::setInputs(const std::vector<double> &vec)
 {
     for (size_t i = 0; i < m_neurons.size(); i++) {
         m_neurons[i]->setInput(vec[i]);

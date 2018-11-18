@@ -37,9 +37,9 @@ void Layer::setBias(double bias)
     }
 }
 
-WeightVec Layer::getOutputs() const
+std::vector<double> Layer::getOutputs() const
 {
-    WeightVec vec(m_neurons.size());
+    std::vector<double> vec(m_neurons.size());
 
     for (size_t i = 0; i < m_neurons.size(); i++) {
         vec[i] = m_neurons[i]->getOutput();

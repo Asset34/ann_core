@@ -10,7 +10,7 @@ public:
     explicit InputLayer(size_t n);
     explicit InputLayer(const WeightVec &vec);
 
-    void setInputs(const WeightVec &vec);
+    void setInputs(const std::vector<double> &vec);
 
 };
 

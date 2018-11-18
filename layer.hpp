@@ -14,7 +14,7 @@ public:
     void setActivationFunc(const ActivationFunc &func);
     void setBias(double bias);
 
-    WeightVec getOutputs() const;
+    std::vector<double> getOutputs() const;
 
     WeightMat getWeights() const;
     void setWeights(const WeightMat &mat);
