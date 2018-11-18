@@ -7,11 +7,10 @@
 class InputLayer : public Layer
 {
 public:
-    InputLayer(size_t n);
-    InputLayer(const vec &inputs);
-    virtual ~InputLayer();
+    explicit InputLayer(size_t n);
+    explicit InputLayer(const WeightVec &vec);
 
-    void setInputs(const vec &inputs);
+    void setInputs(const WeightVec &vec);
 
 };
 

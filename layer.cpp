@@ -3,128 +3,127 @@
 #include <algorithm>
 
 Layer::Layer(size_t size, double bias)
-    : m_bias(bias)
+    : m_neurons(size)
 {
-    m_activationFunc =
-    [](double x) -> double
-    {
-        return x;
-    };
-
-    build(size);
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i] = new Neuron(bias);
+    }
 }
 
-Layer::Layer(size_t size, activation_func func, double bias)
-    : m_activationFunc(func),
-      m_bias(bias)
+Layer::Layer(size_t size, const ActivationFunc &func, double bias)
+    : m_neurons(size)
 {
-    build(size);
+    for (size_t i = 0; i < m_neurons.size(); i++) {
+        m_neurons[i] = new Neuron(func, bias);
+    }
 }
 
 Layer::~Layer()
 {
-    clear();
+
 }
 
-void Layer::setActivationFunc(activation_func func)
+void Layer::setActivationFunc(const ActivationFunc &func)
 {
-    m_activationFunc = func;
-
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setActivationFunc(func);
+    for (Neuron *neuron : m_neurons) {
+        neuron->setActivationFunc(func);
     }
 }
 
 void Layer::setBias(double bias)
 {
-    m_bias = bias;
+    for (Neuron *neuron : m_neurons) {
+        neuron->setBias(bias);
+    }
+}
+
+WeightVec Layer::getOutputs() const
+{
+    WeightVec vec(m_neurons.size());
 
     for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setBias(bias);
+        vec[i] = m_neurons[i]->getOutput();
+    }
+
+    return vec;
+}
+
+void Layer::setWeights(const WeightMat &mat)
+{
+    if (m_neurons.size() < mat.size()) {
+        return;
+    }
+
+    for (size_t i = 0; i < mat.size(); i++) {
+        m_neurons[i]->setWeights(mat[i]);
     }
 }
 
-void Layer::setInputWeights(const mat &weights)
+void Layer::connectAllToOne(Neuron &neuron, const WeightVec &vec)
 {
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setInputWeights(weights[i]);
+    if (m_neurons.size() < vec.size()) {
+        return;
+    }
+
+    // Connect with presented weights
+    for (size_t i = 0; i < vec.size(); i++) {
+        m_neurons[i]->connect(neuron, vec[i]);
+    }
+
+    // Connect rest neurons without weights
+    for (size_t i = vec.size(); i < m_neurons.size(); i++) {
+        m_neurons[i]->connect(neuron);
     }
 }
 
-mat Layer::getInputWeights() const
+void Layer::connectAllToAll(Layer &layer, const WeightMat &mat)
 {
-    mat weights(m_neurons.size());
-
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        weights[i] = m_neurons[i]->getInputWeights();
+    if (layer.m_neurons.size() < mat.size()) {
+        return;
     }
 
-    return weights;
-}
-
-void Layer::setOutputWeights(const mat &weights)
-{
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->setOutputWeights(weights[i]);
-    }
-}
-
-mat Layer::getOutputWeights() const
-{
-    mat weights(m_neurons.size());
-
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        weights[i] = m_neurons[i]->getOutputWeights();
+    // Connect with presented weights
+    for (size_t i = 0; i < mat.size(); i++) {
+        connectAllToOne(*layer.m_neurons[i], mat[i]);
     }
 
-    return weights;
-}
-
-vec Layer::getOutputs() const
-{
-    vec outputs(m_neurons.size());
-
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        outputs[i] = m_neurons[i]->getOutput();
-    }
-
-    return outputs;
-}
-
-void Layer::connectAllToOne(Neuron *neuron, const vec &weights)
-{
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->connect(neuron, weights[i]);
+    // Connect rest neurons without weights
+    for (size_t i = mat.size(); i < layer.m_neurons.size(); i++) {
+        connectAllToOne(*layer.m_neurons[i]);
     }
 }
 
-void Layer::connectAllToAll(Layer &layer, const mat &weights)
+void Layer::connectOneToOne(Layer &layer, const WeightVec &vec)
 {
-    for (size_t i = 0; i < layer.m_neurons.size(); i++) {
-        connectAllToOne(layer.m_neurons[i], weights[i]);
+    if (m_neurons.size() != layer.m_neurons.size()) {
+        return;
     }
-}
+    if (m_neurons.size() < vec.size()) {
+        return;
+    }
 
-void Layer::connectOneToOne(Layer &layer, const vec &weights)
-{
-    size_t size = std::min(m_neurons.size(), layer.m_neurons.size());
+    // Connect with presented weights
+    for (size_t i = 0; i < vec.size(); i++) {
+        m_neurons[i]->connect(*layer.m_neurons[i], vec[i]);
+    }
 
-    for (size_t i = 0; i < size; i++) {
-        m_neurons[i]->connect(layer.m_neurons[i], weights[i]);
+    // Connect rest neurons without weights
+    for (size_t i = vec.size(); i < layer.m_neurons.size(); i++) {
+        m_neurons[i]->connect(*layer.m_neurons[i]);
     }
 }
 
 void Layer::compute()
 {
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->compute();
+    for (Neuron *neuron : m_neurons) {
+        neuron->compute();
     }
 }
 
 void Layer::send()
 {
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        m_neurons[i]->send();
+    for (Neuron *neuron : m_neurons) {
+        neuron->send();
     }
 }
 
@@ -132,27 +131,4 @@ void Layer::move()
 {
     compute();
     send();
-}
-
-void Layer::clear()
-{
-    for (size_t i = 0; i < m_neurons.size(); i++) {
-        delete m_neurons[i];
-    }
-
-    m_neurons.clear();
-}
-
-void Layer::rebuild(size_t size)
-{
-    clear();
-    build(size);
-}
-
-void Layer::build(size_t size)
-{
-    m_neurons.resize(size);
-    for (size_t i = 0; i < size; i++) {
-        m_neurons[i] = new Neuron(m_activationFunc, m_bias);
-    }
 }

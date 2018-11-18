@@ -7,40 +7,31 @@
 class Layer
 {
 public:
-    Layer(size_t size, double bias = 0.0);
-    Layer(size_t size, activation_func func, double bias = 0.0);
+    explicit Layer(size_t size, double bias = 0.0);
+    Layer(size_t size, const ActivationFunc &func, double bias = 0.0);
     virtual ~Layer();
 
-    void setActivationFunc(activation_func func);
+    void setActivationFunc(const ActivationFunc &func);
     void setBias(double bias);
 
-    void setInputWeights(const mat &weights);
-    mat getInputWeights() const;
+    WeightVec getOutputs() const;
 
-    void setOutputWeights(const mat &weights);
-    mat getOutputWeights() const;
+    WeightMat getWeights() const;
+    void setWeights(const WeightMat &mat);
 
-    vec getOutputs() const;
-
-    void connectAllToOne(Neuron *neuron, const vec &weights = vec());
-    void connectAllToAll(Layer &layer, const mat &weights = mat());
-    void connectOneToOne(Layer &layer, const vec &weights = vec());
+    void connectAllToOne(Neuron &neuron, const WeightVec &vec = WeightVec());
+    void connectAllToAll(Layer &layer, const WeightMat &mat = WeightMat());
+    void connectOneToOne(Layer &layer, const WeightVec &vec = WeightVec());
 
     void compute();
     void send();
     void move();
 
-    void clear();
-    void rebuild(size_t size);
-
 protected:
+    Layer() = default;
+
     std::vector<Neuron*> m_neurons;
 
-private:
-    void build(size_t size);
-
-    activation_func m_activationFunc;
-    double m_bias;
 };
 
 #endif // LAYER_HPP

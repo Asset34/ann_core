@@ -1,13 +1,8 @@
 #include "inputneuron.hpp"
 
 InputNeuron::InputNeuron(double input)
-    : Neuron()
 {
     setInput(input);
-}
-
-InputNeuron::~InputNeuron()
-{
 }
 
 void InputNeuron::setInput(double input)
