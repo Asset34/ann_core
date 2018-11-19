@@ -10,6 +10,7 @@ public:
 
     virtual void setInput(double input) override;
     virtual void compute() override;
+    virtual void reset() override;
 
 };
 

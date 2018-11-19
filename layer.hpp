@@ -27,6 +27,8 @@ public:
     void send();
     void move();
 
+    void reset();
+
 protected:
     Layer() = default;
 

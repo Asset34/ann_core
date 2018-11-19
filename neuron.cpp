@@ -91,3 +91,9 @@ void Neuron::send()
 {
     m_output = m_memory;
 }
+
+void Neuron::reset()
+{
+    m_output = 0.0;
+    m_memory = 0.0;
+}

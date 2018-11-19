@@ -27,6 +27,8 @@ public:
     virtual void compute();
     void send();
 
+    virtual void reset();
+
 protected:
     class Synapse;
 

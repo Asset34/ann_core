@@ -132,3 +132,10 @@ void Layer::move()
     compute();
     send();
 }
+
+void Layer::reset()
+{
+    for (Neuron *neuron : m_neurons) {
+        neuron->reset();
+    }
+}

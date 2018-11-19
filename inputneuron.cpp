@@ -15,3 +15,8 @@ void InputNeuron::compute()
 {
     // STUB
 }
+
+void InputNeuron::reset()
+{
+    // STUB
+}
