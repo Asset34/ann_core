@@ -11,7 +11,7 @@ class Layer
 public:
     explicit Layer(size_t size, double bias = 0.0);
     Layer(size_t size, const ActivationFunc &func, double bias = 0.0);
-    virtual ~Layer();
+    virtual ~Layer() = default;
 
     void setActivationFunc(const ActivationFunc &func);
     void setActivationFuncs(const std::vector<ActivationFunc> &funcs);

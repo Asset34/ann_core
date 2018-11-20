@@ -18,11 +18,6 @@ Layer::Layer(size_t size, const ActivationFunc &func, double bias)
     }
 }
 
-Layer::~Layer()
-{
-
-}
-
 void Layer::setActivationFunc(const ActivationFunc &func)
 {
     for (Neuron *neuron : m_neurons) {
