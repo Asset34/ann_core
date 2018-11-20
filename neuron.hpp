@@ -8,6 +8,7 @@ class Neuron
 public:
     Neuron(double bias = 0.0);
     Neuron(const ActivationFunc &func, double bias = 0.0);
+    virtual ~Neuron() = default;
 
     void setActivationFunc(const ActivationFunc &func);
 
