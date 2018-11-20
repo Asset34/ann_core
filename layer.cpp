@@ -30,10 +30,32 @@ void Layer::setActivationFunc(const ActivationFunc &func)
     }
 }
 
+void Layer::setActivationFuncs(const std::vector<ActivationFunc> &funcs)
+{
+    if (m_neurons.size() < funcs.size()) {
+        return;
+    }
+
+    for (size_t i = 0; i < funcs.size(); i++) {
+        m_neurons[i]->setActivationFunc(funcs[i]);
+    }
+}
+
 void Layer::setBias(double bias)
 {
     for (Neuron *neuron : m_neurons) {
         neuron->setBias(bias);
+    }
+}
+
+void Layer::setBiases(const std::vector<double> biases)
+{
+    if (m_neurons.size() < biases.size()) {
+        return;
+    }
+
+    for (size_t i = 0; i < biases.size(); i++) {
+        m_neurons[i]->setBias(biases[i]);
     }
 }
 

@@ -1,6 +1,8 @@
 #ifndef LAYER_HPP
 #define LAYER_HPP
 
+#include <vector>
+
 #include "entities.hpp"
 #include "neuron.hpp"
 
@@ -12,7 +14,10 @@ public:
     virtual ~Layer();
 
     void setActivationFunc(const ActivationFunc &func);
+    void setActivationFuncs(const std::vector<ActivationFunc> &funcs);
+
     void setBias(double bias);
+    void setBiases(const std::vector<double> biases);
 
     std::vector<double> getOutputs() const;
 
