@@ -5,3 +5,9 @@ NeuralNetwork::NeuralNetwork(size_t inputSize, size_t memorySize)
       m_memorySize(memorySize)
 {
 }
+
+void NeuralNetwork::rebuild(size_t inputSize, size_t memorySize)
+{
+    m_inputSize = inputSize;
+    m_memorySize = memorySize;
+}

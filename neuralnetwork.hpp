@@ -19,7 +19,7 @@ public:
     virtual bool learn(const std::vector<LearnUnit> &samples) = 0;
     virtual std::tuple<std::vector<double>, bool> recognize(const std::vector<double> &sample) = 0;
 
-    virtual void rebuild(size_t inputSize, size_t memorySize) = 0;
+    virtual void rebuild(size_t inputSize, size_t memorySize);
 
 protected:
     size_t m_inputSize;
