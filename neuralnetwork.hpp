@@ -14,6 +14,7 @@ class NeuralNetwork
 {
 public:
     NeuralNetwork(size_t inputSize, size_t memorySize);
+    virtual ~NeuralNetwork() = default;
 
     virtual bool learn(const std::vector<LearnUnit> &samples) = 0;
     virtual std::tuple<std::vector<double>, bool> recognize(const std::vector<double> &sample) = 0;
