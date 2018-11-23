@@ -130,6 +130,11 @@ void Layer::connectOneToOne(Layer &layer, const WeightVec &vec)
     }
 }
 
+void Layer::connectLoopback(const WeightMat &mat)
+{
+    connectAllToAll(*this, mat);
+}
+
 void Layer::compute()
 {
     for (Neuron *neuron : m_neurons) {

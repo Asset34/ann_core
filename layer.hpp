@@ -27,6 +27,7 @@ public:
     void connectAllToOne(Neuron &neuron, const WeightVec &vec = WeightVec());
     void connectAllToAll(Layer &layer, const WeightMat &mat = WeightMat());
     void connectOneToOne(Layer &layer, const WeightVec &vec = WeightVec());
+    void connectLoopback(const WeightMat &mat = WeightMat());
 
     void compute();
     void send();
