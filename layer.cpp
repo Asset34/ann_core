@@ -18,6 +18,23 @@ Layer::Layer(size_t size, const ActivationFunc &func, double bias)
     }
 }
 
+Layer::Layer(Layer &&other)
+    : m_neurons(other.m_neurons)
+{
+    other.m_neurons.clear();
+}
+Layer &Layer::operator=(Layer &&other)
+{
+    for (int i = 0; i < m_neurons.size(); i++) {
+        delete m_neurons[i];
+    }
+
+    m_neurons = other.m_neurons;
+    other.m_neurons.clear();
+
+    return *this;
+}
+
 void Layer::setActivationFunc(const ActivationFunc &func)
 {
     for (Neuron *neuron : m_neurons) {

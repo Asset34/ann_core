@@ -11,7 +11,12 @@ class Layer
 public:
     explicit Layer(size_t size, double bias = 0.0);
     Layer(size_t size, const ActivationFunc &func, double bias = 0.0);
+    Layer(const Layer &other) = delete;
+    Layer(Layer &&other);
     virtual ~Layer() = default;
+
+    Layer &operator=(const Layer &other) = delete;
+    Layer &operator=(Layer &&other);
 
     void setActivationFunc(const ActivationFunc &func);
     void setActivationFuncs(const std::vector<ActivationFunc> &funcs);
@@ -21,7 +26,6 @@ public:
 
     std::vector<double> getOutputs() const;
 
-    WeightMat getWeights() const;
     void setWeights(const WeightMat &mat);
 
     void connectAllToOne(Neuron &neuron, const WeightVec &vec = WeightVec());
