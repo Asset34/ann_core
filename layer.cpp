@@ -25,8 +25,8 @@ Layer::Layer(Layer &&other)
 }
 Layer &Layer::operator=(Layer &&other)
 {
-    for (int i = 0; i < m_neurons.size(); i++) {
-        delete m_neurons[i];
+    for (Neuron *neuron : m_neurons) {
+        delete neuron;
     }
 
     m_neurons = other.m_neurons;
